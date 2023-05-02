@@ -4,6 +4,8 @@ import HomeContainer from "./HomeContainer";
 import "./global.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TourPage from "./pages/TourPage/Tours";
+import TourDetails from "./pages/TourDetails/TourDetails";
+import TourRegister from "./pages/TourRegister/TourRegister";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +16,14 @@ const router = createBrowserRouter([
         path: "/tours",
         element: <TourPage />,
       },
+      {
+        path: "/tours/register",
+        element: <TourRegister />
+      },
+      {
+        path: "/tours/:tour_id",
+        element: <TourDetails />,
+      }
     ],
   },
 ]);

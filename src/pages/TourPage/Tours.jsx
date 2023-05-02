@@ -27,6 +27,7 @@ function TourPage() {
   };
 
   let tours = new Array(5).fill({
+    id: "1",
     tag: "Culture Sharper",
     title: "Sketch and the city",
     desc: "Doodle and draw your way around Singapore in this immersive and fun urban sketching experience. Pick up the basics of travel sketching as you explore Chinatown’s quirky streets. Capture Singapore from a different perspective as you fill the pages of your sketchbook with the neighbourhood’s vibrant streetscapes, breathtaking architecture and beautiful facades. You’ll also sample some local coffee and snacks before you start exploring.",
@@ -36,6 +37,7 @@ function TourPage() {
       meetingPoint: "Meeting point:\nExit B, Outram Park MRT Station",
       info: "Booking required upon request",
     },
+    image: "https://www.visitsingapore.com/content/dam/desktop/global/singapore-tours/culture-shapers/sketch-and-the-city-1000x1000.jpg"
   });
 
   return (
