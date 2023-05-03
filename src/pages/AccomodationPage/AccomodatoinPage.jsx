@@ -1,8 +1,9 @@
+import AccomodationItem from "@components/Accomodation/Accomodation";
 import Dropdown from "@components/Dropdown/Dropdown";
 import RangeSlider from "@components/RangeSlider/DoubleRangeSlider";
 import React from "react";
 
-function ShopPage() {
+function AccomodationPage() {
   const roomChoices = {
     single_bed: {
       name: "Single Bed",
@@ -11,6 +12,11 @@ function ShopPage() {
       name: "Double Bed",
     },
   };
+
+  const shopItems = new Array(10).fill({
+    id:"",
+    seller: "From Air BNB"
+  });
 
   return (
     <div>
@@ -36,8 +42,16 @@ function ShopPage() {
           </button>
         </div>
       </div>
+      <div>
+        <div className="p-4">Showing 33 of 33 Shop results</div>
+        <div className="w-full flex flex-row flex-wrap gap-4 p-4 ml-4">
+          {shopItems.map((item, i) => (
+            <AccomodationItem item={item} key={i}/>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
 
-export default ShopPage;
+export default AccomodationPage;

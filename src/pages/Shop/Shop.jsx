@@ -1,6 +1,6 @@
 import React from "react";
 
-function Stay() {
+function Shop() {
   return (
     <div>
       <div className="w-full h-[calc(50vh+15em)] bg-black">
@@ -16,4 +16,4 @@ function Stay() {
   );
 }
 
-export default Stay;
+export default Shop;

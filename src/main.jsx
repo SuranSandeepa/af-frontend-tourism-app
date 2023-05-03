@@ -6,8 +6,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TourPage from "./pages/TourPage/Tours";
 import TourDetails from "./pages/TourDetails/TourDetails";
 import TourRegister from "./pages/TourRegister/TourRegister";
-import ShopPage from "./pages/ShopPage/ShopPage";
-import Stay from "./pages/Stay/Stay";
+import AccomodationPage from "./pages/AccomodationPage/AccomodatoinPage";
+import Shop from "./pages/Shop/Shop";
 
 const router = createBrowserRouter([
   {
@@ -27,12 +27,12 @@ const router = createBrowserRouter([
         element: <TourDetails />,
       },
       {
-        path: "/shop",
-        element: <ShopPage />,
+        path: "/stay",
+        element: <AccomodationPage />,
       },
       {
-        path: "/stay",
-        element: <Stay />,
+        path: "/shop",
+        element: <Shop />,
       },
     ],
   },
