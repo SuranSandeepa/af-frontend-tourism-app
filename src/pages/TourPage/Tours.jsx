@@ -1,4 +1,5 @@
-import Tour from "@/components/Tour/Tour";
+import Dropdown from "@components/Dropdown/Dropdown";
+import Tour from "@components/Tour/Tour";
 import React from "react";
 import { BsChevronDown } from "react-icons/bs";
 
@@ -42,34 +43,18 @@ function TourPage() {
 
   return (
     <div>
-      <div className="w-full h-[calc(50vh+15em)] bg-black">
-        {/* <img src="image" alt="image" className="w-full h-full object-cover" /> */}
+      <div className="w-full relative h-[calc(50vh+15em)] bg-black">
+        <img
+          src="https://www.visitsingapore.com/singapore-tours/_jcr_content/par-carousel/carousel_with_video/carousel/item_1.thumbnail.carousel-img-sq.640.640.jpg"
+          alt="image"
+          className="w-full h-full object-cover object-top"
+        />
+        <div className="absolute bottom-0 left-0 text-white font-black text-4xl mb-[2em] px-10 drop-shadow-lg">
+        Explore and shop the world - discover unique treasures for your travels with us!
+        </div>
       </div>
       <div className="flex flex-col gap-2">
-        <div className="border-[3px] border-gray-400">
-          <div className="px-9 py-4 text-base flex justify-between bg-gray-200">
-            <div>Show me only</div>
-            <BsChevronDown size={20} />
-          </div>
-          <div className="grid auto-cols-auto gap-1 p-2">
-            {Object.values(choices).map((value) => {
-              return (
-                <div key={value.name} className="px-6 py-1">
-                  <label htmlFor="" className=" text-lg">
-                    <input type="checkbox" className="mr-2" />
-                    {value.name}
-                    <div className=" text-base">{value.desc}</div>
-                  </label>
-                </div>
-              );
-            })}
-          </div>
-          <div className="px-9 flex flex-row justify-end pb-4">
-            <button class="justify-end bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-              Apply
-            </button>
-          </div>
-        </div>
+        <Dropdown choices={choices} mainTitle="Show me only"/>
         <div className="border-[3px] border-gray-400">
           <div className="px-9 py-4 text-base flex justify-between bg-gray-200">
             <div>Show me only</div>

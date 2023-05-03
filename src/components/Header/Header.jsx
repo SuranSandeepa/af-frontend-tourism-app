@@ -2,8 +2,9 @@ import React from "react";
 
 const headerElements = {
     "Eat and Drink": "/eat-drink",
-    "Shop":"",
-    "Stay": ""
+    "Shop":"/shop",
+    "Stay": "/stay",
+    "Tours":"/tours"
 }
 
 function Header() {
