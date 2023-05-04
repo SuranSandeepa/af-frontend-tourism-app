@@ -14,20 +14,21 @@ function AccomodationPage() {
   };
 
   const shopItems = new Array(10).fill({
-    id:"",
-    seller: "From Air BNB"
+    id: "",
+    seller: "From Air BNB",
   });
 
   return (
     <div>
       <div className="w-full relative h-[calc(50vh+15em)] bg-black">
         <img
-          src="https://www.visitsingapore.com/content/dam/vs/made-with-passion/homepage/signpost-1670x940.png"
+          src="https://www.visitsingapore.com/singapore-hotels/_jcr_content/par-carousel/carousel_with_video/carousel/item0.thumbnail.carousel-img.1400.500.jpg"
           alt="image"
           className="w-full h-full object-cover object-top"
         />
         <div className="absolute bottom-0 left-0 text-white font-black text-4xl mb-[2em] px-10 drop-shadow-lg">
-        Explore and shop the world - discover unique treasures for your travels with us!
+          Explore and shop the world - discover unique treasures for your
+          travels with us!
         </div>
       </div>
       <div className="flex flex-col gap-2">
@@ -44,9 +45,9 @@ function AccomodationPage() {
       </div>
       <div>
         <div className="p-4">Showing 33 of 33 Shop results</div>
-        <div className="w-full flex flex-row flex-wrap gap-4 p-4 ml-4">
+        <div className="w-full grid sm:grid-cols-1 lg:grid-cols-4 md:grid-cols-3 gap-5 px-6 py-4">
           {shopItems.map((item, i) => (
-            <AccomodationItem item={item} key={i}/>
+            <AccomodationItem item={item} key={i} />
           ))}
         </div>
       </div>
