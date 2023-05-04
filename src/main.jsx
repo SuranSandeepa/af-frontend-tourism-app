@@ -8,6 +8,7 @@ import TourDetails from "./pages/TourDetails/TourDetails";
 import TourRegister from "./pages/TourRegister/TourRegister";
 import AccomodationPage from "./pages/AccomodationPage/AccomodatoinPage";
 import Shop from "./pages/Shop/Shop";
+import AccomodationDetails from "./pages/AccomodationDetails/AccomodationDetails/AccomodationDetails";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
         path: "/shop",
         element: <Shop />,
       },
+      {
+        path: "/rooms/:room_id",
+        element: <AccomodationDetails />
+      }
     ],
   },
 ]);
