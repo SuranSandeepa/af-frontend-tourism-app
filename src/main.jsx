@@ -9,6 +9,12 @@ import TourRegister from "./pages/TourRegister/TourRegister";
 import AccomodationPage from "./pages/AccomodationPage/AccomodatoinPage";
 import Shop from "./pages/Shop/Shop";
 import AccomodationDetails from "./pages/AccomodationDetails/AccomodationDetails/AccomodationDetails";
+import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
+import ShopPage from "./pages/ShopPage/ShopPage";
+import EatDrinkPage from "./pages/EatDrinkPage/EatDrinkPage";
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
+import AdminContainer from "./AdminContainer";
+import AccomodationManager from "./pages/Admin/AccomodationManager/AccomodationManager";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +27,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/tours/register",
-        element: <TourRegister />
+        element: <TourRegister />,
       },
       {
         path: "/tours/:tour_id",
@@ -37,14 +43,37 @@ const router = createBrowserRouter([
       },
       {
         path: "/rooms/:room_id",
-        element: <AccomodationDetails />
-      }
+        element: <AccomodationDetails />,
+      },
+      {
+        path: "/products/:product_id",
+        element: <ProductDetailsPage />,
+      },
+      { path: "/shop/:shop_id", element: <ShopPage /> },
+      {
+        path: "/eat-drink",
+        element: <EatDrinkPage />,
+      },
     ],
   },
+  {
+    path: "/admin",
+    element: <AdminContainer />,
+    children: [
+      {
+        path: "accommodations",
+        element: <AccomodationManager />
+      }
+    ]
+  }
 ]);
+
+const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>
 );

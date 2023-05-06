@@ -5,27 +5,33 @@ function AccomodationItem({ item }) {
   const navigate = useNavigate();
 
   return (
-    <div
-      className="h-[28rem] bg-gray-200 rounded overflow-hidden"
-    >
+    <div className="h-[34rem] bg-gray-200 rounded overflow-hidden">
       <div className="w-full h-[60%]">
         <img
-          src="https://www.visitsingapore.com/singapore-hotels/_jcr_content/par/content_signpost_car/signpost/item0.thumbnail.image.326.183.jpg"
+          src={item?.images && item.images[0]}
           alt="Preview image"
           className="w-full h-full object-cover object-top"
         />
       </div>
       <div className="w-full p-3 h-[40%] bg-gray-200 flex flex-col">
-        <div className=" uppercase pb-2 font-semibold">{item?.seller} </div>
+        <div className=" uppercase pb-2 font-semibold">
+          FROM {item?.provider}{" "}
+        </div>
         <div className="flex-grow">
-          Tangalle, Sri Lanka
-          <div>145 kilometers away</div>
-          <div>4-9 May</div>
+          <div className="truncate">{item.name}</div>
+          {item.address}, {item.country}
+          <div>200 kilometers away</div>
+          <div>{item.dateRange}</div>
         </div>
         <div>
-          <span className="font-bold">$1200</span> night
+          <span className="font-bold">{item.price}</span> per day
         </div>
-        <button onClick={() => { navigate("/rooms/1") }} class=" self-end bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">
+        <button
+          onClick={() => {
+            navigate("/rooms/" + item._id);
+          }}
+          className=" self-end bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+        >
           Book now
         </button>
       </div>
