@@ -13,6 +13,8 @@ import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
 import ShopPage from "./pages/ShopPage/ShopPage";
 import EatDrinkPage from "./pages/EatDrinkPage/EatDrinkPage";
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
+import AdminContainer from "./AdminContainer";
+import AccomodationManager from "./pages/Admin/AccomodationManager/AccomodationManager";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +56,16 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/admin",
+    element: <AdminContainer />,
+    children: [
+      {
+        path: "accommodations",
+        element: <AccomodationManager />
+      }
+    ]
+  }
 ]);
 
 const queryClient = new QueryClient()
