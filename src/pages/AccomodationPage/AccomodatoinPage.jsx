@@ -31,24 +31,28 @@ function AccomodationPage() {
           travels with us!
         </div>
       </div>
-      <div className="flex flex-col gap-2">
-        <Dropdown mainTitle={"Room type"} choices={roomChoices} />
-        <div className="px-9 py-4 flex flex-row justify-between border-gray-400 border-[3px]">
-          <div>
-            <div className="text-base">Price Range</div>
-            <RangeSlider className="w-80 h-5" defaultValue={[25, 75]} />
+      <div className="flex flex-col lg:flex-row">
+        <div className="flex-[0.2] lg:px-4 lg:py-2 relative">
+          <div className="flex flex-col gap-2 sticky top-[10px]">
+            <Dropdown mainTitle={"Room type"} choices={roomChoices} />
+            <div className="px-9 py-4 flex flex-row justify-between border-gray-400 border-[3px]">
+              <div className="pr-3">
+                <div className="text-base">Price Range</div>
+                <RangeSlider className="w-80 h-5" defaultValue={[25, 75]} />
+              </div>
+              <button class="justify-end bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                Apply
+              </button>
+            </div>
           </div>
-          <button class="justify-end bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-            Apply
-          </button>
         </div>
-      </div>
-      <div>
-        <div className="p-4">Showing 33 of 33 Shop results</div>
-        <div className="w-full grid sm:grid-cols-1 lg:grid-cols-4 md:grid-cols-3 gap-5 px-6 py-4">
-          {shopItems.map((item, i) => (
-            <AccomodationItem item={item} key={i} />
-          ))}
+        <div className="flex-[0.8]">
+          <div className="p-4">Showing 33 of 33 Shop results</div>
+          <div className="w-full grid sm:grid-cols-1 lg:grid-cols-4 md:grid-cols-3 gap-5 px-6 py-4">
+            {shopItems.map((item, i) => (
+              <AccomodationItem item={item} key={i} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
