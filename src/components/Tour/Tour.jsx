@@ -4,7 +4,7 @@ import { MdAccessTimeFilled } from "react-icons/md";
 import { HiLocationMarker } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 
-function Tour({ tour }) {
+function Tour({ tour, className='' }) {
   const navigate = useNavigate();
 
   const getIcon = (type) => {
@@ -23,8 +23,8 @@ function Tour({ tour }) {
 
   console.log(tour.features);
   return (
-    <div className="bg-gray-100 px-4">
-      <div className="relative h-[40em]">
+    <div className={`bg-gray-100 grid grid-cols-2 ${className}`}>
+      <div className="relative">
         {/* Image and tag */}
         <div className="absolute top-0 left-0 bg-red-500 text-white p-1">
           {tour?.tag}
@@ -35,7 +35,7 @@ function Tour({ tour }) {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="p-4">
+      <div className="p-4 flex flex-col h-full">
         <div className="uppercase font-semibold mb-2">{tour?.title}</div>
         <div>
           {tour?.desc} <span className="text-red-500">less</span>
@@ -49,10 +49,11 @@ function Tour({ tour }) {
             );
           })}
         </div>
-        <div className="flex flex-row justify-end pb-4">
+        <div className="flex-grow"></div>
+        <div className="flex flex-row justify-end pb-2 self-end">
           <button onClick={() => {
             navigate("/tours/" + tour?.id)
-          }} class="justify-end bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+          }} className="justify-end bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
             Book now
           </button>
         </div>

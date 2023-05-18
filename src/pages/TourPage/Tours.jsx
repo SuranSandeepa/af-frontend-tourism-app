@@ -30,15 +30,15 @@ function TourPage() {
   let tours = new Array(5).fill({
     id: "1",
     tag: "Culture Sharper",
-    title: "Sketch and the city",
-    desc: "Doodle and draw your way around Singapore in this immersive and fun urban sketching experience. Pick up the basics of travel sketching as you explore Chinatown’s quirky streets. Capture Singapore from a different perspective as you fill the pages of your sketchbook with the neighbourhood’s vibrant streetscapes, breathtaking architecture and beautiful facades. You’ll also sample some local coffee and snacks before you start exploring.",
+    title: "Explore the Best Places",
+    desc: `Sigiriya is a fascinating historical and cultural site located in central Sri Lanka. This UNESCO World Heritage Site is renowned for its stunning rock fortress, which sits atop a massive rock plateau that rises 200 meters above the surrounding jungle.\nVisitors to Sigiriya can explore the ancient ruins of the fortress, which date back to the 5th century AD. The fortress was built by King Kasyapa as a palace and fortress, and it is adorned with intricate frescoes, elaborate water gardens, and sophisticated engineering marvels.`,
     features: {
-      type: "appointment",
-      duration: "2 hours",
+      duration: "8 hours",
       meetingPoint: "Meeting point:\nExit B, Outram Park MRT Station",
       info: "Booking required upon request",
     },
-    image: "https://www.visitsingapore.com/content/dam/desktop/global/singapore-tours/culture-shapers/sketch-and-the-city-1000x1000.jpg"
+    image:
+      "https://planetofhotels.com/guide/sites/default/files/styles/paragraph__live_banner__lb_image__2350bp/public/live_banner/Sigiriya.jpg",
   });
 
   return (
@@ -50,24 +50,23 @@ function TourPage() {
           className="w-full h-full object-cover object-top"
         />
         <div className="absolute bottom-0 left-0 text-white font-black text-4xl mb-[2em] px-10 drop-shadow-lg">
-        Explore and shop the world - discover unique treasures for your travels with us!
+          Explore and shop the world - discover unique treasures for your
+          travels with us!
         </div>
       </div>
-      <div className="flex flex-col gap-2">
-        <Dropdown choices={choices} mainTitle="Show me only"/>
-        <div className="border-[3px] border-gray-400">
-          <div className="px-9 py-4 text-base flex justify-between bg-gray-200">
-            <div>Show me only</div>
-            <BsChevronDown size={20} />
+      <div className="flex flex-col lg:flex-row ">
+        <div className="flex-[0.2] lg:px-4 lg:py-2 relative">
+          <div className="flex flex-col gap-2 sticky top-[10px]">
+            <Dropdown choices={choices} mainTitle="Categories" noApply />
           </div>
         </div>
-      </div>
-      <div>
-        <div className="p-4">Showing 33 of 33 Passion Tours</div>
-        <div className="w-full flex flex-col gap-2">
-          {tours.map((tour, i) => (
-            <Tour tour={tour} key={i} />
-          ))}
+        <div className="flex-[0.8]">
+          <div className="p-4">Showing 33 of 33 Tours</div>
+          <div className="w-full flex flex-col gap-3">
+            {tours.map((tour, i) => (
+              <Tour tour={tour} key={i} className="max-h-[80vh]" />
+            ))}
+          </div>
         </div>
       </div>
     </div>
