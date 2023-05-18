@@ -4,15 +4,14 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { truncateString } from "@utils/string";
 import Overlay from "@components/Overlay/Overlay";
-import AccomodationEditor from "@components/AccomodationEditor/AccomodationEditor";
 import { Portal } from "react-portal";
+import ShopEditor from "@components/ShopEditor/ShopEditor";
 import { AiOutlinePlus } from "react-icons/ai";
 
-function AccomodationManager() {
+function ShopManagement() {
   const [editorVisibility, setEditorVisibility] = useState(false);
-
   const { isLoading, error, data } = useQuery("rooms", () =>
-    axios.get(`${API_ENDPOINT}/api/rooms`)
+    axios.get(`${API_ENDPOINT}/api/shop-items`)
   );
 
   console.log(data);
@@ -20,7 +19,7 @@ function AccomodationManager() {
   const shopItems = data?.data ? data.data : [];
 
   return (
-    <div className="relative flex-grow overflow-hidden overflow-y-scroll">
+    <div className="relative overflow-hidden overflow-y-scroll">
       <table className="table-auto divide-y relative divide-gray-200">
         <thead className="bg-gray-50 sticky top-0">
           <tr>
@@ -69,7 +68,7 @@ function AccomodationManager() {
                       <div className="flex items-center">
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">
-                            {value.provider}
+                            {value.providerDetails?.name}
                           </div>
                           <div className="text-sm text-gray-500">
                             {value.address}
@@ -78,7 +77,7 @@ function AccomodationManager() {
                       </div>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {truncateString(value.name, 20)}
+                      {truncateString(value.name || "", 20)}
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                       ${value.price}/night
@@ -112,7 +111,7 @@ function AccomodationManager() {
       </table>
       {editorVisibility && (
         <Overlay className="flex justify-center items-center">
-          <AccomodationEditor
+          <ShopEditor
             onClickClose={() => {
               setEditorVisibility(false);
             }}
@@ -126,11 +125,11 @@ function AccomodationManager() {
           }}
           className="p-4 fixed bottom-[4em] right-[4em] z-[999] bg-blue-600 rounded-full"
         >
-          <AiOutlinePlus className="fill-white" size={25} />
+          <AiOutlinePlus className="fill-white" size={25}/>
         </button>
       </Portal>
     </div>
   );
 }
 
-export default AccomodationManager;
+export default ShopManagement;

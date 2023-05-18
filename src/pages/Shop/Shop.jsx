@@ -1,13 +1,32 @@
 import ShopItem from "@components/ShopItem/ShopItem";
 import React from "react";
+import Dropdown from "@components/Dropdown/Dropdown";
+import Search from "@components/Search/Search";
+import axios from "axios";
+import { API_ENDPOINT } from "../../config";
+import { useQuery } from "react-query";
 
 function Shop() {
-  const shopItems = new Array(10).fill({
-    id: "",
-    seller: "Ran souvenirs",
-    name: "Wooden Yaka Mask"
-  });
-  
+  const { isLoading, error, data } = useQuery("rooms", () =>
+    axios.get(`${API_ENDPOINT}/api/shop-items`)
+  );
+
+  console.log(data);
+
+  const shopItems = data?.data ? data.data : [];
+
+  const foodChoices = {
+    local: {
+      name: "Local",
+    },
+    traditional: {
+      name: "Traditional",
+    },
+    popular: {
+      name: "Popular",
+    },
+  };
+
   return (
     <div>
       <div className="w-full relative h-[calc(50vh+15em)] bg-black">
@@ -21,14 +40,26 @@ function Shop() {
           travels with us!
         </div>
       </div>
-      <div className="flex flex-col">
-        <div></div>
-        <div></div>
-      </div>
-      <div className="w-full grid sm:grid-cols-1 lg:grid-cols-4 xl:grid-cols-5 md:grid-cols-3 gap-5 px-6 py-4">
-        {shopItems.map((item, i) => (
-          <ShopItem item={item} key={i} />
-        ))}
+      <div className="flex flex-col lg:flex-row">
+        <div className="flex-[0.1] lg:px-4 lg:py-2 relative">
+          <div className="flex flex-col gap-2 sticky top-[10px]">
+            <div className="flex flex-col w-full pt-6 justify-center items-center">
+              <div className="text-xl font-bold pb-2">Search Here</div>
+              <Search className="min-w-[30rem]" />
+            </div>
+            <Dropdown mainTitle={"Food type"} choices={foodChoices} noApply />
+          </div>
+        </div>
+        <div className="flex-[0.9]">
+          <div className="p-4">
+            Showing {data?.data?.length || 0} of 33 Shop results
+          </div>
+          <div className="w-full grid sm:grid-cols-1 lg:grid-cols-4 md:grid-cols-3 gap-5 px-6 py-4">
+            {shopItems.map((item, i) => (
+              <ShopItem item={item} key={i} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
