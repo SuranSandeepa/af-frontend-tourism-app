@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { API_ENDPOINT } from "../../../config";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { truncateString } from "@utils/string";
+import Overlay from "@components/Overlay/Overlay";
+import AccomodationEditor from "@components/AccomodationEditor/AccomodationEditor";
+import { Portal } from "react-portal";
+import { AiOutlinePlus } from "react-icons/ai";
+
 function AccomodationManager() {
+  const [editorVisibility, setEditorVisibility] = useState(false);
+
   const { isLoading, error, data } = useQuery("rooms", () =>
     axios.get(`${API_ENDPOINT}/api/rooms`)
   );
@@ -13,8 +20,8 @@ function AccomodationManager() {
   const shopItems = data?.data ? data.data : [];
 
   return (
-    <div className="relative overflow-hidden overflow-y-scroll">
-      <table className="table-auto w-full divide-y relative divide-gray-200">
+    <div className="relative flex-grow overflow-hidden overflow-y-scroll">
+      <table className="table-auto divide-y relative divide-gray-200">
         <thead className="bg-gray-50 sticky top-0">
           <tr>
             <th
@@ -103,6 +110,25 @@ function AccomodationManager() {
             })}
         </tbody>
       </table>
+      {editorVisibility && (
+        <Overlay className="flex justify-center items-center">
+          <AccomodationEditor
+            onClickClose={() => {
+              setEditorVisibility(false);
+            }}
+          />
+        </Overlay>
+      )}
+      <Portal>
+        <button
+          onClick={() => {
+            setEditorVisibility(true);
+          }}
+          className="p-4 fixed bottom-[4em] right-[4em] z-[999] bg-blue-600 rounded-full"
+        >
+          <AiOutlinePlus className="fill-white" size={25} />
+        </button>
+      </Portal>
     </div>
   );
 }
