@@ -1,43 +1,50 @@
+import { useParams } from "react-router-dom";
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
+import { useQuery } from "react-query";
+import { API_ENDPOINT } from "../../../config";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function AccomodationDetails() {
+  const { room_id } = useParams();
+  const navigate = useNavigate();
+
+  const { isLoading, error, data } = useQuery("rooms", () =>
+    axios.get(`${API_ENDPOINT}/api/rooms/${room_id}`)
+  );
+
+  let _data = data?.data;
+
+  const reserve = () => {
+    navigate("/reserve/"+room_id);
+  }
+
   return (
     <div>
       <div className="m-5">
         <div className="grid grid-rows-2">
-          <div className="font-semibold text-xl">The Box House</div>
+          <div className="font-semibold text-xl">{_data?.name}</div>
           <div className="flex items-center">
             <AiFillStar className="inline-block mr-1" />
-            4.75 · 55 reviews · Tangalle, Southern Province, Sri Lanka
+            4.75 · 55 reviews · {_data?.address}
           </div>
         </div>
         <div className="grid grid-rows-2 grid-cols-3 h-[calc(50vh+10em)] gap-3 my-4 rounded-lg overflow-hidden">
-          <div className=" col-span-2 row-span-2">
-            <img
-              src="https://a0.muscache.com/im/pictures/c606bdfe-a916-4bae-9fc0-f69391130a92.jpg?im_w=960"
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div>
-            <img
-              src="https://a0.muscache.com/im/pictures/c606bdfe-a916-4bae-9fc0-f69391130a92.jpg?im_w=960"
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div>
-            <img
-              src="https://a0.muscache.com/im/pictures/c606bdfe-a916-4bae-9fc0-f69391130a92.jpg?im_w=960"
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </div>
+          {(_data && Array.isArray(_data?.images)) &&
+            _data.images.map((image,i) => (
+              <div key={i} className={i == 0 ? " col-span-2 row-span-2" : ""}>
+                <img
+                  src={image}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
         </div>
         <div className="grid grid-cols-2 justify-center items-center">
           <div>
-            <span className="text-lg font-bold">Hosted by AirBNB</span>
+            <span className="text-lg font-bold">Hosted by {_data?.provider}</span>
             <br></br>
             10 guests · 5 bedrooms · 5 beds · 5 bathrooms
           </div>
@@ -77,7 +84,7 @@ function AccomodationDetails() {
           </div>
           <div className="pt-4 pr-4">
             <div className="p-4 border-[2px] border-black rounded-xl w-72">
-              <span className="font-bold text-lg">333 LKR </span> night
+              <span className="font-bold text-lg">{_data?.price} LKR </span> night
               <div className="pb-2">4.75 · 55 reviews</div>
               <div className="grid grid-cols-2 border-[1px] rounded-md border-black text-sm">
                 <div className="p-2 border-r-[1px] border-black">
@@ -103,7 +110,7 @@ function AccomodationDetails() {
                 </div>
               </div>
               <div className="flex justify-center items-center w-full mt-4">
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                <button onClick={reserve} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                   Reserve
                 </button>
               </div>
