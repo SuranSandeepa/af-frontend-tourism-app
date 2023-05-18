@@ -1,0 +1,21 @@
+{
+  "presets": [
+    ["@babel/preset-react", { "runtime": "automatic" }],
+    "@babel/preset-env"
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "alias": {
+          "@schema": "./src/schema",
+          "@components/*": "./src/components/*",
+          "@pages/*": "./src/pages/*",
+          "@schema/*": "./src/schema/*"
+          // Add more aliases as needed
+        }
+      }
+    ]
+  ]
+}
