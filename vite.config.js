@@ -8,6 +8,7 @@ export default defineConfig({
     alias:{
       // '@' : path.resolve(__dirname, './src'),
       '@components': path.resolve(__dirname, './src/components/'),
+      '@schema': path.resolve(__dirname, './src/schema/'),
       '@pages': path.resolve(__dirname, './src/pages/'),
       '@utils': path.resolve(__dirname, './src/utils/')
     },

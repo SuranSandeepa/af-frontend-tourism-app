@@ -6,8 +6,8 @@ function AdminContainer() {
   return (
     <>
       <AdminHeader />
-      <div className="flex flex-row gap-4 w-full h-screen">
-        <AdminSideBar />
+      <div className="grid grid-cols-[20em_auto] gap-4 w-full h-screen">
+        <AdminSideBar/>
         <Outlet />
       </div>
     </>
