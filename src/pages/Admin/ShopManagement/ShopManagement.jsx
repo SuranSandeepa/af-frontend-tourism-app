@@ -60,7 +60,7 @@ function ShopManagement() {
         </thead>
         <tbody className="bg-white divide-y divide-gray-200 h-full">
           {shopItems &&
-            shopItems.map((value) => {
+            shopItems?.map((value) => {
               return (
                 <>
                   <tr className="bg-white hover:bg-gray-50">

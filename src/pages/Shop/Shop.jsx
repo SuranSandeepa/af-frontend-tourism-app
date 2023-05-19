@@ -55,7 +55,7 @@ function Shop() {
             Showing {data?.data?.length || 0} of 33 Shop results
           </div>
           <div className="w-full grid sm:grid-cols-1 lg:grid-cols-4 md:grid-cols-3 gap-5 px-6 py-4">
-            {shopItems.map((item, i) => (
+            {shopItems?.map((item, i) => (
               <ShopItem item={item} key={i} />
             ))}
           </div>

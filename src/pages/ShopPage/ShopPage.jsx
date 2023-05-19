@@ -26,7 +26,7 @@ function ShopPage() {
         </div>
       </div>
       <div className="w-full grid sm:grid-cols-1 lg:grid-cols-4 xl:grid-cols-5 md:grid-cols-3 gap-5 px-6 py-4">
-        {shopItems.map((item, i) => (
+        {shopItems?.map((item, i) => (
           <ShopItem item={item} key={i} />
         ))}
       </div>

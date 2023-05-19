@@ -113,6 +113,7 @@ function ReservationForm() {
             Email Address:
           </label>
           <input
+            data-testid="email-tst"
             type="email"
             id="email"
             className="w-full border border-gray-300 rounded py-2 px-4"
