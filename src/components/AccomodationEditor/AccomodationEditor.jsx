@@ -6,6 +6,7 @@ import { accomadationEditorSchema } from "@schema/accomodation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQuery, useQueryClient } from "react-query";
+import "@testing-library/jest-dom/extend-expect";
 
 function AccomodationEditor({ onClickClose, selectedId, editMode }) {
   const qc = useQueryClient();
@@ -58,7 +59,7 @@ function AccomodationEditor({ onClickClose, selectedId, editMode }) {
         <div className="w-full px-3 mb-6 md:mb-0">
           <label
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            htmlFor="provider-address"
+            htmlFor="name"
           >
             Name
           </label>
@@ -78,7 +79,7 @@ function AccomodationEditor({ onClickClose, selectedId, editMode }) {
         <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
           <label
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            htmlFor="provider-address"
+            htmlFor="address"
           >
             Provider Address
           </label>
@@ -114,13 +115,13 @@ function AccomodationEditor({ onClickClose, selectedId, editMode }) {
         <div className="w-full md:w-1/2 px-3">
           <label
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            htmlFor="price"
+            htmlFor="pname"
           >
             Provider Name
           </label>
           <input
             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            id="price"
+            id="pname"
             type="text"
             placeholder="Enter Provider"
             {...register("provider")}
@@ -153,7 +154,7 @@ function AccomodationEditor({ onClickClose, selectedId, editMode }) {
         <div className="w-full px-3">
           <label
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            htmlFor="description"
+            htmlFor="desc"
           >
             Description
           </label>
