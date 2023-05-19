@@ -1,22 +1,36 @@
 import React, { useState } from "react";
 import { API_ENDPOINT } from "../../../config";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { truncateString } from "@utils/string";
 import Overlay from "@components/Overlay/Overlay";
 import { Portal } from "react-portal";
 import { AiOutlinePlus } from "react-icons/ai";
-import TourEditor from "@components/TourEditor/TourEditor";
+import FoodEditor from "@components/FoodEditor/FoodEditor";
 
-function TourManagement() {
+function RestaurantsManager() {
   const [editorVisibility, setEditorVisibility] = useState(false);
-  const { isLoading, error, data } = useQuery("rooms", () =>
-    axios.get(`${API_ENDPOINT}/api/tours`)
+  const [deleteVisibility, setDeleteVisibility] = useState(false);
+  const [editorParams, setEditorParams] = useState({});
+  const [deleteParams, setDeleteParams] = useState({});
+  const qc = useQueryClient();
+  const { isLoading, error, data } = useQuery("food", () =>
+    axios.get(`${API_ENDPOINT}/api/food`)
   );
 
   console.log(data);
 
   const shopItems = data?.data ? data.data : [];
+
+  const deleteItem = async () => {
+    try {
+      await axios.delete(`${API_ENDPOINT}/api/food/${deleteParams.id}`);
+      qc.invalidateQueries(["rooms"]);
+      setDeleteVisibility(false);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <div className="relative overflow-hidden overflow-y-scroll">
@@ -27,19 +41,19 @@ function TourManagement() {
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
-              Title
+              Provider
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Name
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
               Description
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Provider
             </th>
             <th
               scope="col"
@@ -60,14 +74,14 @@ function TourManagement() {
         </thead>
         <tbody className="bg-white divide-y divide-gray-200 h-full">
           {shopItems &&
-            shopItems?.map((value) => {
+            shopItems?.map((value, i) => {
               return (
-                <tr key={value._id} className="bg-white hover:bg-gray-50">
+                <tr key={i} className="bg-white hover:bg-gray-50">
                   <td className="px-4 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="ml-4">
                         <div className="text-sm font-medium text-gray-900">
-                          {value.title}
+                          {value.provider}
                         </div>
                         <div className="text-sm text-gray-500">
                           {value.address}
@@ -76,10 +90,10 @@ function TourManagement() {
                     </div>
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {truncateString(value.desc || "", 20)}
+                    {value.name}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {value.provider}
+                    {truncateString(value.desc, 20)}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                     Available
@@ -90,17 +104,30 @@ function TourManagement() {
                     </span>
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a
-                      href="#"
+                    <button
+                      onClick={() => {
+                        setEditorParams({
+                          selectedId: value._id,
+                          editMode: true,
+                        });
+                        setEditorVisibility(true);
+                      }}
                       className="text-indigo-600 hover:text-indigo-900"
                     >
                       Edit
-                    </a>
+                    </button>
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="#" className="text-red-600 hover:text-red-900">
+                    <button
+                      onClick={() => {
+                        setDeleteParams({ id: value._id, name: value.name });
+                        setDeleteVisibility(true);
+                      }}
+                      href="#"
+                      className="text-red-600 hover:text-red-900"
+                    >
                       Delete
-                    </a>
+                    </button>
                   </td>
                 </tr>
               );
@@ -109,10 +136,11 @@ function TourManagement() {
       </table>
       {editorVisibility && (
         <Overlay className="flex justify-center items-center">
-          <TourEditor
+          <FoodEditor
             onClickClose={() => {
               setEditorVisibility(false);
             }}
+            {...editorParams}
           />
         </Overlay>
       )}
@@ -126,8 +154,34 @@ function TourManagement() {
           <AiOutlinePlus className="fill-white" size={25} />
         </button>
       </Portal>
+      {/* delete */}
+      {deleteVisibility && (
+        <Overlay className="flex justify-center items-center">
+          <div className="p-4 bg-white flex flex-col w-60">
+            <div className="mb-6 mr-6">Delete Entry {deleteParams.name}?</div>
+            <div className="flex justify-end">
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mr-2 rounded focus:outline-none focus:shadow-outline"
+                type="submit"
+                onClick={deleteItem}
+              >
+                Delete
+              </button>
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit"
+                onClick={() => {
+                  setDeleteVisibility(false);
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </Overlay>
+      )}
     </div>
   );
 }
 
-export default TourManagement;
+export default RestaurantsManager;

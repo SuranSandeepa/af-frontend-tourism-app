@@ -1,12 +1,12 @@
 import React from "react";
 import { BsChevronDown } from "react-icons/bs";
 
-function Dropdown({ choices, mainTitle, onApplyButtonClick, noApply }) {
+function Dropdown({ choices, mainTitle, onApplyButtonClick, noApply, expandable }) {
   return (
-    <div className="border-[3px] border-gray-400">
+    <div className="border-[3px] border-gray-400 pb-2">
       <div className="px-9 py-4 text-base flex justify-between bg-gray-200">
         <div>{mainTitle}</div>
-        <BsChevronDown size={20} />
+        { expandable ? <BsChevronDown size={20} /> : ""}
       </div>
       {choices && <div className="grid auto-cols-auto gap-1 p-2">
         {Object.values(choices).map((value) => {
@@ -22,7 +22,7 @@ function Dropdown({ choices, mainTitle, onApplyButtonClick, noApply }) {
         })}
       </div>}
       {!noApply && <div className="px-9 flex flex-row justify-end pb-4">
-        <button onClick={onApplyButtonClick} class="justify-end bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+        <button onClick={onApplyButtonClick} className="justify-end bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
           Apply
         </button>
       </div>}

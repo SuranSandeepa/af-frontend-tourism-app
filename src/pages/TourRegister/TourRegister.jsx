@@ -1,6 +1,16 @@
 import React from "react";
 
 function TourRegister() {
+  /* if (process.env.NODE_ENV === "development") {
+    // You are in the development environment
+    console.log("Development environment");
+  } else if (process.env.NODE_ENV === "production") {
+    // You are in the production environment
+    console.log("Production environment");
+  } else {
+    // Environment is neither development nor production
+    console.log("Unknown environment");
+  } */
   return (
     <div className="flex items-center flex-col">
       <div className="my-9 text-lg font-bold">Fill out this form</div>
