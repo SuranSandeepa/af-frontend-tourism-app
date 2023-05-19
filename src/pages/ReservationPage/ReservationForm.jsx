@@ -17,7 +17,6 @@ function ReservationForm() {
     resolver: yupResolver(reserveFormSchema),
   });
   const { room_id } = useParams();
-  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
