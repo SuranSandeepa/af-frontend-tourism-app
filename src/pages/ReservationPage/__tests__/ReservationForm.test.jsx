@@ -21,4 +21,13 @@ describe('Tests for Reservation form', () => {
     const errorMessage = screen.getByText('You must accept the terms and conditions');
     expect(errorMessage).toBeInTheDocument();
   });
+
+  test('check if email validation is there', async () => {
+    render(<ReservationForm />);
+    const submitButton = screen.getByText('Submit');
+    fireEvent.click(submitButton);
+    await act(async () => {});
+    const errorMessage = screen.getByText('Email is a required field');
+    expect(errorMessage).toBeInTheDocument();
+  });
 });

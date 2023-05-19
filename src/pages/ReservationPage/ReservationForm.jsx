@@ -23,8 +23,6 @@ function ReservationForm() {
     try {
       await axios.post(`${API_ENDPOINT}/api/rooms/${room_id}/reserve`, data);
       console.log(data, room_id);
-      return;
-      navigate("/success");
     } catch (e) {
       console.error(e);
     }
