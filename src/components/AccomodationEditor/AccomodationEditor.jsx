@@ -6,7 +6,6 @@ import { accomadationEditorSchema } from "@schema/accomodation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQuery, useQueryClient } from "react-query";
-import "@testing-library/jest-dom/extend-expect";
 
 function AccomodationEditor({ onClickClose, selectedId, editMode }) {
   const qc = useQueryClient();

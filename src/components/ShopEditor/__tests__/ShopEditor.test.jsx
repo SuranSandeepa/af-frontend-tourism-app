@@ -4,7 +4,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { AiOutlineClose } from "react-icons/ai";
-import ShopEditor from "./ShopEditor";
+import ShopEditor from "../ShopEditor";
 import "@testing-library/jest-dom/extend-expect";
 
 describe("ShopEditor", () => {
