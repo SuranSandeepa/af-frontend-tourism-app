@@ -20,6 +20,7 @@ import TourManagement from "./pages/Admin/TourManagement/TourManager";
 import RestaurantsManager from "./pages/Admin/RestaurantsManager/RestaurantsManager";
 import ReservationForm from "./pages/ReservationPage/ReservationForm";
 import SuccessPage from "./pages/SuccessPage/SuccessPage";
+import NotFound from "./NotFound";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
         path: "/success",
         element: <SuccessPage />,
       },
+      {
+        path: "/",
+        element: <NotFound />,
+      }
     ],
   },
   {
@@ -91,6 +96,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "*",
+    element: <NotFound />,
+  }
 ]);
 
 const queryClient = new QueryClient();
