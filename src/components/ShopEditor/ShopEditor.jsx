@@ -1,7 +1,29 @@
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useQuery, useQueryClient } from "react-query";
+import { accomadationEditorSchema } from "@schema/accomodation";
 
-function ShopEditor({ onClickClose }) {
+function ShopEditor({ onClickClose, selectedId, editMode }) {
+  const qc = useQueryClient();
+  const { isLoading, error, data } = useQuery(
+    ["rooms", selectedId],
+    () => axios.get(`${API_ENDPOINT}/api/shop-items/${selectedId}`),
+    { skip: !editMode }
+  );
+
+  console.log(editMode, selectedId, data);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(accomadationEditorSchema),
+  });
+
   return (
     <form className="w-full max-w-lg bg-white p-4 rounded-lg relative">
       <button className="p-2 absolute top-0 right-0" onClick={onClickClose}>
