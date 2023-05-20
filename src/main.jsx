@@ -21,6 +21,7 @@ import RestaurantsManager from "./pages/Admin/RestaurantsManager/RestaurantsMana
 import ReservationForm from "./pages/ReservationPage/ReservationForm";
 import SuccessPage from "./pages/SuccessPage/SuccessPage";
 import NotFound from "./NotFound";
+import TourRegisterSuccess from "./pages/TourRegisterSuccess/TourRegisterSuccess";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: "/success",
         element: <SuccessPage />,
+      },
+      {
+        path: "/tour-reg-success",
+        element: <TourRegisterSuccess />,
       },
       {
         path: "/",

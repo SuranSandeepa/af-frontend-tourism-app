@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React from "react";
 
 function TourRegister() {
@@ -11,6 +12,7 @@ function TourRegister() {
     // Environment is neither development nor production
     console.log("Unknown environment");
   } */
+  const navigate = useNavigate();
   return (
     <div className="flex items-center flex-col">
       <div className="my-9 text-lg font-bold">Fill out this form</div>
@@ -215,7 +217,11 @@ function TourRegister() {
       </form>
 
       <div className="pb-6">
-        <button className="justify-end bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+        <button onClick={() => {
+          setTimeout(() => {
+            navigate("/tour-reg-success")
+          }, 1500)
+        }} className="justify-end bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
           Register Now
         </button>
       </div>
