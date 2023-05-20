@@ -10,6 +10,9 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 function ShopManagement() {
   const [editorVisibility, setEditorVisibility] = useState(false);
+  const [deleteVisibility, setDeleteVisibility] = useState(false);
+  const [editorParams, setEditorParams] = useState({});
+  const [deleteParams, setDeleteParams] = useState({});
   const { isLoading, error, data } = useQuery("rooms", () =>
     axios.get(`${API_ENDPOINT}/api/shop-items`)
   );
@@ -17,6 +20,16 @@ function ShopManagement() {
   console.log(data);
 
   const shopItems = data?.data ? data.data : [];
+
+  const deleteItem = async () => {
+    try {
+      await axios.delete(`${API_ENDPOINT}/api/shop-items/${deleteParams.id}`);
+      qc.invalidateQueries(["rooms"]);
+      setDeleteVisibility(false);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <div className="relative overflow-hidden overflow-y-scroll">
@@ -85,23 +98,32 @@ function ShopManagement() {
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                       Available
                     </td>
-                    <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        Active
-                      </span>
-                    </td>
                     <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a
-                        href="#"
+                      <button
+                        onClick={() => {
+                          setEditorParams({
+                            selectedId: value._id,
+                            editMode: true,
+                          });
+                          setEditorVisibility(true);
+                        }}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
                         Edit
-                      </a>
+                      </button>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a href="#" className="text-red-600 hover:text-red-900">
+                      <button
+                        onClick={() => {
+                          console.log("fdasfdf");
+                          setDeleteParams({ id: value._id, name: value.name });
+                          setDeleteVisibility(true);
+                        }}
+                        href="#"
+                        className="text-red-600 hover:text-red-900"
+                      >
                         Delete
-                      </a>
+                      </button>
                     </td>
                   </tr>
                 </>
@@ -125,9 +147,35 @@ function ShopManagement() {
           }}
           className="p-4 fixed bottom-[4em] right-[4em] z-[999] bg-blue-600 rounded-full"
         >
-          <AiOutlinePlus className="fill-white" size={25}/>
+          <AiOutlinePlus className="fill-white" size={25} />
         </button>
       </Portal>
+      {/* delete */}
+      {deleteVisibility && (
+        <Overlay className="flex justify-center items-center">
+          <div className="p-4 bg-white flex flex-col w-60">
+            <div className="mb-6 mr-6">Delete Entry {deleteParams.name}?</div>
+            <div className="flex justify-end">
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mr-2 rounded focus:outline-none focus:shadow-outline"
+                type="submit"
+                onClick={deleteItem}
+              >
+                Delete
+              </button>
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit"
+                onClick={() => {
+                  setDeleteVisibility(false);
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </Overlay>
+      )}
     </div>
   );
 }
