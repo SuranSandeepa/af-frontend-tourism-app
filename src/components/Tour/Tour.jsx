@@ -52,7 +52,7 @@ function Tour({ tour, className='' }) {
         <div className="flex-grow"></div>
         <div className="flex flex-row justify-end pb-2 self-end">
           <button onClick={() => {
-            navigate("/tours/" + tour?.id)
+            navigate("/tours/register")
           }} className="justify-end bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
             Book now
           </button>
